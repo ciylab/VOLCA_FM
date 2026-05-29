@@ -53,6 +53,9 @@ void handleNoteOff(byte channel, byte pitch, byte velocity) {
  */
 
 void handleControlChange(byte channel, byte number, byte value) {
+    if (43 < number) {
+        return;
+    }
     number = cc2index(number);
     value = (byte) map(value, 0, 127, 0, (int) get_max(number));
     if (number == ALGORITHM) {

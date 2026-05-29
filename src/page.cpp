@@ -91,7 +91,7 @@ char algo_str[][65] = {
 /**
  * @brief nombre de paramètres par page
  */
-byte l[7] = {2, 16, 4, 8, 5, 4, 6};
+byte l[] = {2, 16, 4, 8, 5, 4, 6};
 
 /**
  * Pour chaque page :
@@ -144,7 +144,7 @@ int change_page(void) {
  * @brief Fonction qui donne le numéro de paramètre FM en focntion
  * du CC. 
  *
- * Les numéros de cc sont 1, 2, 3,..., 59 i.e. jusqu'au dernier 
+ * Les numéros de cc sont 1, 2, 3,..., 43 i.e. jusqu'au dernier 
  * paramètre géré via les pots et l'écran.
  *
  * @return le rang du paramètre

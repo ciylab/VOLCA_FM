@@ -9,8 +9,6 @@
 #include "volca.h"
 #include "page.h"
 
-#define M 99
-
 using namespace MIDI_NAMESPACE;
 
 extern uint8_t parameters_value[];
@@ -22,23 +20,24 @@ extern MidiInterface<SerialMIDI<HardwareSerial>> MIDI; /**<interface MIDI*/
  * Yamaha FB-01 en désactivant les opérateurs 1 et 2
  */
 
-byte algorithm_num[8] = {0, 13, 7, 6, 4, 21, 30, 31};
+byte algorithm_num[8] = {
+    0, 13, 7, 6, 4, 21, 30, 31
+};
 
 /**
  * @brief Tableau des valeurs maximales de chacun des 156 paramètres FM.
  */
 byte parameters_max[156] = {
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, M, M, M, 3, 3, 7, 3, 7, M, 1, 31, M, 14,  
-    M, M, M, M, M, M, M, M, // PITCH EG
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,99,99,99,3, 3, 7, 3, 7, 99,1, 31, 99,14,  
+    99,99,99,99,99,99,99,99,// PITCH EG
     31, 7, 1,
-    M, M, M, M, 1, 5, // LFO
-    7,
-    48, // TRANSPOSE
+    99,99,99,99,1, 5, // LFO
+    7, 48, // TRANSPOSE
     127, 127, 127, 127, 127, 127, 127, 127, // VOICE NAME
     63 // OP ON/OFF
 };
@@ -82,9 +81,10 @@ void set_value(byte index, byte value) {
     NRPNsArray[5] = index & 127;
     NRPNsArray[8] = value;
     MIDI.sendSysEx(9, NRPNsArray, true);
+    // cas L2 qui doit modifier aussi L3
     if (index == 68 || index == 47 || index == 26 || index == 5) {
         NRPNsArray[5]++;
-        MIDI.sendSysEx(9, NRPNsArray, true); // L2 = L3
+        MIDI.sendSysEx(9, NRPNsArray, true); // L3 = L2
         NRPNsArray[5] = NRPNsArray[5] - 4;
         NRPNsArray[8] = 0;
         MIDI.sendSysEx(9, NRPNsArray, true); // R3 = 0

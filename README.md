@@ -1,6 +1,6 @@
 ## À quoi ça sert ?
 
-À modifier en temps réel des paramètres du Volca FM inacessible directement 
+À modifier en temps réel 43 des 156 paramètres du Volca FM inacessibles directement 
 sur le synthétiseur.
 
 ## Exemple de configuration 

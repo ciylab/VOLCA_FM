@@ -51,14 +51,18 @@ def export_header(sysex):
     comme paramètres par défaut à l'initialisation du module.
     '''
     f = open("../src/mypatch.h", "w")
-    f.write("byte parameters_value[] = {\n")
+    f.write("byte parameters_value[] = {")
+    lengths = [0, 21, 21, 21, 21, 21, 21, 8, 3, 6, 2, 10, 1]
+    idx = 0
     count = 0
     for val in sysex[6:-1]:
+        if lengths[idx] == count:
+            f.write("\n")
+            count = 0
+            idx += 1
         f.write(str(val) + ", ")
         count += 1
-        if count % 21 == 0:
-            f.write("\n")
-    f.write("};\n")
+    f.write("\n};")
     f.close()
 
 def save_patch(file_name):
