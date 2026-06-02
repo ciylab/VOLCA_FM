@@ -103,7 +103,7 @@ def report():
     |cc|page|rank|num|MSB|LSB|MAX|
     """
     print(f'|cc|page|rank|num|MSB|LSB|MAX|')
-    for cc in range(1, 44):
+    for cc in range(1, 45):
         res = cc2index(cc)
         if res[2] == 0:
             print(f'|----------------------------|')

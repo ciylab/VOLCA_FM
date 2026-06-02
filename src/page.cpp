@@ -146,7 +146,7 @@ int change_page(void) {
  * @brief Fonction qui donne le numéro de paramètre FM en focntion
  * du CC. 
  *
- * Les numéros de cc sont 1, 2, 3,..., 43 i.e. jusqu'au dernier 
+ * Les numéros de cc sont 1, 2, 3,..., 44 i.e. jusqu'au dernier 
  * paramètre géré via les pots et l'écran.
  *
  * @return le rang du paramètre
