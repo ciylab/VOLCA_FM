@@ -8,6 +8,7 @@
 #include "midi.h" /**< pour LED_CLOCK */
 #include "volca.h" /**< correspondance volcas FM<->FB-01 */
 #include "page.h"
+#include "Display.h"
 
 
 using namespace MIDI_NAMESPACE;
@@ -15,6 +16,7 @@ using namespace MIDI_NAMESPACE;
 unsigned long currentTick = 0; /**< le temps est discrétisé en PPQN*/
 bool clock = false; /**< la led n'affiche pas le tempo*/
 extern MidiInterface<SerialMIDI<HardwareSerial>> MIDI; /**<interface MIDI*/
+extern Display oled;
 
 /**
  * @brief Gestion note on de la librairie
@@ -62,6 +64,17 @@ void handleControlChange(byte channel, byte number, byte value) {
         value = value >> 2;
     }
     set_value(number, value);
+    if (get_page_index() != get_page_index_by_cc()) {
+        return;
+    }
+    if (get_cursor_index() != get_cursor_index_by_cc()) {
+        oled.displaySelected();
+        set_cursor_index(get_cursor_index_by_cc());
+    }
+    if(number == ALGORITHM) { // pas d'affichage des algos
+        return;
+    }
+    oled.displayValue();
 }
 
 /**

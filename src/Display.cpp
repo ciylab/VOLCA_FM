@@ -118,6 +118,20 @@ void Display::displaySelected(int8_t rotation) {
 }
 
 /**
+ * @brief Déplace le curseur par CC.
+ *
+ * On met un espace là où on est puis un chevron là où on va.
+ */
+void Display::displaySelected() {
+    if (6 < get_page_index()) {
+        return;
+    }
+    putChar(get_cur_pos(), ' ');
+    putChar(get_cur_pos_by_cc(), CURSOR);
+    firstDisplay = true;
+}
+
+/**
  * @brief Met le nom du paramètre dans le buffer.
  *
  * Initialise **charIndex** et **endPosition** pour afficher le nom

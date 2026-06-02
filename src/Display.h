@@ -13,8 +13,10 @@
 
 class Display {
   public:
-    char buffer[PAGE_LEN + 1]; /**<tampon de l'écran : ce qui doit être affiché */ 
-    char screen[PAGE_LEN + 1]; /**<contenu de l'écran : ce qui est affiché */
+    /**<tampon de l'écran : ce qui doit être affiché */ 
+    char buffer[PAGE_LEN + 1]; 
+    /**<contenu de l'écran : ce qui est affiché */
+    char screen[PAGE_LEN + 1]; 
     byte charIndex; /**<position dans le tampon du caractère à afficher */
     byte endPosition; /**<dernière position à afficher */
     bool firstDisplay; /**<première rotation ? */
@@ -25,6 +27,7 @@ class Display {
     void welcome();
     void display();
     void displaySelected(int8_t rotation);
+    void displaySelected();
     void displayName();
     void displayValue();
 };

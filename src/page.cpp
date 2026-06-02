@@ -2,8 +2,8 @@
  * @file page.cpp
  * @brief Gestion des pages de l'écran.
  *
- * La page principale affiche les groupes de paramètres. Les pages secondaires
- * affichent une liste de paramètres.
+ * La page principale affiche l'algorithme, le feedback et des groupes 
+ * de paramètres. Les pages secondaires affichent une liste de paramètres.
  *
  * Contient les fonctions getter et setter évitant l'usage de extern.
  */
@@ -15,6 +15,8 @@
 
 int page_index; /**< le rang de la page dans la liste */ 
 int cursor_index; /**< le rang du paramètre dans la page */
+int page_index_by_cc; /**< le rang de la page dans la liste d'après cc */ 
+int cursor_index_by_cc; /**< le rang du paramètre dans la page idem */
 int cursor_position; /**< la position du > parmi les 64 caractères */
 int current_algo; /**< la numéro de 0 à 7 de l'algotithme FB-01 */
 
@@ -159,6 +161,8 @@ byte cc2index(byte cc) {
         }
         j = j - l[i];
     }
+    page_index_by_cc = i;
+    cursor_index_by_cc = j;
     return par_num[i][j];
 }
 
@@ -167,6 +171,27 @@ byte cc2index(byte cc) {
  */
 byte get_page_index(void) {
     return page_index;
+}
+
+/**
+ * @return le numéro de page du paramètre cc
+ */
+byte get_page_index_by_cc(void) {
+    return page_index_by_cc;
+}
+
+/**
+ * @return le numéro du curseur dans la page
+ */
+byte get_cursor_index(void) {
+    return cursor_index;
+}
+
+/**
+ * @return le numéro du curseur dans la page par cc
+ */
+byte get_cursor_index_by_cc(void) {
+    return cursor_index_by_cc;
 }
 
 /**
@@ -202,6 +227,13 @@ page get_page(void) {
  */
 int get_cur_pos(void) {
     return pages[page_index].positions[cursor_index];
+}
+
+/**
+ * @return la position du curseur > parmi les 64 caractères d'après CC.
+ */
+int get_cur_pos_by_cc(void) {
+    return pages[page_index].positions[cursor_index_by_cc];
 }
 
 /**
