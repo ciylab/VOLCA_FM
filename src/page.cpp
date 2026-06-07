@@ -29,25 +29,25 @@ char menu_str[][65] = {
     // FB-01 (AfterTouch mag.)
     // CC :
     // 1      2
-    " ALGO    FDBCK   ADSR    MINLVL  OUT     LFO     PITCH   SCALING",
+    " ALGRTM  FDBACK  ADSR    L4      OUTPUT  LFO     FREQ    SCALE  ",
     // ADSR
     // 3  4   5   6   7   8   9   10  11  12  13  14  15  16  17  18
     " A1  D1  S1  R1  A2  D2  S2  R2  A3  D3  S3  R3  A4  D4  S4  R4 ",
-    // MIN LEVEL
+    // L4
     // 19             20              21              22
-    " ML1             ML2             ML3             ML4            ",
+    " OP1             OP2             OP3             OP4            ",
     // OUTPUT LEVEL et KEYBOARD SENS.
     // 23     24      25      26      27      28      29      30
-    " LVL1    KVS1    LVL2    KVS2    LVL3    KVS3    LVL4    KVS4   ",
+    " OLVL1   KVS1    OLVL2   KVS2    OLVL3   KVS3    OLVL4   KVS4   ",
     // LFO
     // 31     32      33      34      36
-    " SPEED   DELAY   DEPTH   WAVE    MSP                            ",
+    " SPEED   DELAY   DEPTH   WAVE    SPITCH                         ",
     // OSCM = 00 (ratio)
-    // 36             37              38              39
-    " FREQ1           FREQ2           FREQ3           FREQ4          ",
+    // 36     37      38      39      40      41      42      43
+    " COAR1   FINE1   COAR2   FINE2   COAR3   FINE3   COAR4   FINE4  ",
     // LEVEL SCALE
-    // 40     41      42      43      44      45
-    " LDE     RDE     LCU     RCU     BRK     KRS                    ",
+    // 44     45      46      47      48      
+    " LDEPTH  RDEPTH  LCURVE  RCURVE  BREAK                          ",
 };
 
 /**
@@ -62,9 +62,9 @@ byte par_num[NUM_PAGE][16] = {
         NAI, NAI, NAI, NAI, NAI, NAI, NAI, NAI},
     {137, 138, 139, 142, 143, NAI, NAI, NAI, 
         NAI, NAI, NAI, NAI, NAI, NAI, NAI, NAI},
-    {81, 60, 39, 18, NAI, NAI, NAI, NAI,   
+    {81, 82, 60, 61, 39, 40, 18, 19,   
         NAI, NAI, NAI, NAI, NAI, NAI, NAI, NAI},
-    {72, 73, 74, 75, 71, 76, NAI, NAI,  
+    {72, 73, 74, 75, 71, NAI, NAI, NAI,  
         NAI, NAI, NAI, NAI, NAI, NAI, NAI, NAI},
 };
 
@@ -93,7 +93,7 @@ char algo_str[][65] = {
 /**
  * @brief nombre de paramètres par page
  */
-byte l[] = {2, 16, 4, 8, 5, 4, 6};
+byte l[] = {2, 16, 4, 8, 5, 8, 5};
 
 /**
  * Pour chaque page :
@@ -108,8 +108,8 @@ Page pages[NUM_PAGE] = {
     {menu_str[2], {0, 16, 32, 48}, l[2]},
     {menu_str[3], {0, 8, 16, 24, 32, 40, 48, 56}, l[3]},
     {menu_str[4], {0, 8, 16, 24, 32, 40, 48, 56}, l[4]},
-    {menu_str[5], {0, 16, 32, 48}, l[5]},
-    {menu_str[6], {0, 8, 16, 24, 32, 40}, l[6]},
+    {menu_str[5], {0, 8, 16, 24, 32, 40, 48, 56}, l[5]},
+    {menu_str[6], {0, 8, 16, 24, 32}, l[6]},
     {algo_str[0], {}, 0},
     {algo_str[1], {}, 0},
     {algo_str[2], {}, 0},
@@ -146,7 +146,7 @@ int change_page(void) {
  * @brief Fonction qui donne le numéro de paramètre FM en focntion
  * du CC. 
  *
- * Les numéros de cc sont 1, 2, 3,..., 44 i.e. jusqu'au dernier 
+ * Les numéros de cc sont 1, 2, 3,... jusqu'au dernier 48 
  * paramètre géré via les pots et l'écran.
  *
  * @return le rang du paramètre

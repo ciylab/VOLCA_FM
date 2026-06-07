@@ -31,7 +31,7 @@ def create_default_patch():
             99, 99, 99, 99, # LEVEL
             0, 0, 0, 0, 0, 0, # SCALING
             0, 0, 50, # SENS., OUTPUT LEVEL
-            0, 3, 0, 0] # OSC MODE, COARSE, FINE, DETUNE
+            0, 1, 0, 0] # OSC MODE, COARSE, FINE, DETUNE
     all = [
             50, 50, 50, 50, 50, 50, 50, 50, # PITCH EG
             0, 0, 1, # ALGO, FEEDBACK, OSC. SYNC
@@ -49,6 +49,7 @@ def export_header(sysex):
     Cette fonction prend en argument une voix au format sysex
     et la sauvegarde dans un header. Cet header sera utilisé
     comme paramètres par défaut à l'initialisation du module.
+    Le nom de ce fichier est fixé car nécessaire à la compilation.
     '''
     f = open("../src/mypatch.h", "w")
     f.write("byte parameters_value[] = {")

@@ -21,7 +21,7 @@ if __name__ == '__main__':
     for data in json.load(f):
         print("********** test : " + data["message"])
         midi_out.send_message(data["send"])
-        time.sleep(5 / 1000)
+        time.sleep(0.1)
     midi_out.close_port()
     del midi_out
     f.close()

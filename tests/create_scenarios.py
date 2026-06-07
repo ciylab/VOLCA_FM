@@ -1,7 +1,7 @@
 # date: 2026-5-29
 # script qui créer le fichier json des scénarios de test :
 # - note on/off, timing, PC
-# - tous les CC de 1 à 43 pour les valeurs min et max
+# - tous les CC de 1 à 49 pour les valeurs min et max
 #
 # pour tester :
 # $ python3 test_receive.py & python3 send.py
@@ -14,7 +14,7 @@ par_num = [
     70, 49, 28, 7,
     79, 78, 58, 57, 37, 36, 16, 15,   
     137, 138, 139, 142, 143, 
-    81, 60, 39, 18, 
+    81, 82, 60, 61, 39, 40, 18, 19, 
     72, 73, 74, 75, 71, 76, 
     ]
 
@@ -63,8 +63,8 @@ class Scenario:
         et retourne le snénario correspondant.
         """
         algos = [0, 13, 7, 6, 4, 21, 30, 31]
-        if 43 < cc:
-            return Scenario("hors cc", [176, cc, value], [])
+        if 49 < cc:
+            return Scenario("inactif", [176, cc, value], [])
         msb = cc2index(cc)[4]
         lsb = cc2index(cc)[5]
         val = cc2index(cc)[6] * value // 127
@@ -87,7 +87,7 @@ def cc2index(cc):
     Fonction qui retourne le tuple des données utiles en fonction 
     du numéro de CC.  
     """
-    l = [2, 16, 4, 8, 5, 4, 6]
+    l = [2, 16, 4, 8, 5, 8, 5]
     rank = cc - 1 # rang du paramètre dans la page
     for page in range(7): # numéro de page
         if (rank < l[page]):
@@ -103,7 +103,7 @@ def report():
     |cc|page|rank|num|MSB|LSB|MAX|
     """
     print(f'|cc|page|rank|num|MSB|LSB|MAX|')
-    for cc in range(1, 45):
+    for cc in range(1, 49):
         res = cc2index(cc)
         if res[2] == 0:
             print(f'|----------------------------|')
@@ -122,7 +122,7 @@ def build_scenarios():
     scenarios.append(Scenario("start", [250], [250]))
     scenarios.append(Scenario("stop", [252], [252]))
     scenarios.append(Scenario("Program Change", [192, 2], []))
-    for cc in range(1, 45):
+    for cc in range(1, 49):
         scenarios.append(Scenario.fromcc(cc, 0))
         scenarios.append(Scenario.fromcc(cc, 127))
     return scenarios

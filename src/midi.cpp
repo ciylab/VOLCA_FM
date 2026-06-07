@@ -55,7 +55,7 @@ void handleNoteOff(byte channel, byte pitch, byte velocity) {
  */
 
 void handleControlChange(byte channel, byte number, byte value) {
-    if (44 < number) {
+    if (48 < number) {
         return;
     }
     number = cc2index(number);
