@@ -80,7 +80,9 @@ void handleRotate1(int8_t rotation) {
     byte value = get_value(index);
     if(!oled.firstDisplay) {
         int step = 1;
-        if (get_max(index) == 99) {
+        if (get_max(index) == 99 && 
+                (index != 82 && index != 61 && 
+                 index != 40 && index != 19)) {
             step = 5;
         }
         if (rotation > 0) {

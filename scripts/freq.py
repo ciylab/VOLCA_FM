@@ -32,7 +32,24 @@ def print_values(d):
 def print_lines():
     print("|------|" + "--|" * 12)
 
-if __name__ == '__main__':
+def print_notes():
+    L = [.5]
+    L.extend(range(1, 32))
+    for coarse in L:
+        print(f"{str(coarse):3s}", end = "|")
+        for fine in range(100):
+            n = 12 * log(coarse * (1 + 0.01 * fine)) / log(2)
+            m = round(n)
+            if abs(m - n) < 0.05:
+                #print(f"{m % 12:2d}", end = "|")
+                print(f"{notes[m % 12]:2s}", end = "|")
+        print()
+
+def report():
+    """
+    affiche les valeurs de coarse et fine pour la fréquence la plus proche 
+    de la note 
+    """
     print("|coarse|", end="")
     for note in notes:
         print(f"{note:2s}", end = "|")
@@ -45,4 +62,6 @@ if __name__ == '__main__':
         d = get_values(coarse)
         print_values(d)
 
+if __name__ == '__main__':
+    print_notes()
 

@@ -25,6 +25,7 @@ int get_cur_pos_by_cc(void);
 int get_next_cur_pos(void);
 byte cc2index(byte cc); 
 void move_cursor(int8_t rotation);
+byte get_note(byte coarse, byte fine);
 void get_string(char str[8]); 
 
 #endif

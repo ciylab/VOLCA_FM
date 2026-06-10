@@ -265,9 +265,37 @@ void move_cursor(int8_t rotation) {
 }
 
 /**
- * @brief récupère la valeur du paramètre FM en ascii.
+ * @brief retourne le rang inférieur de la fréquence dans la 
+ * gamme chromatique en fonction de COARSE et FINE. 
+ *
+ * Par exemple si le rang théorique est 12.8 alors c'est la valeur 0
+ * qui est retenue et si le rang est 41.1 c'est 2.
+ */
+byte get_note(byte coarse, byte fine) {
+    float co = (float) coarse;
+    float fi = 1 + ((float) fine) / 100;
+    if (co == 0) {
+        co = 0.5;
+    }
+    float note_th = 12 * log(co * fi) / log(2);
+    float note_ph = round(note_th + 0.01); // note la plus proche
+    return ((int) note_ph) % 12;
+}
+
+/**
+ * @brief récupère la valeur du paramètre FM en ascii avec le cas 
+ * particulier de l'affichage de la note jouée par chaque opérateur
  */
 void get_string(char str[8]) {
+    const char *notes[12] = {
+        "C ", "C#", "D ", "D#", "E ", "F ", 
+        "F#", "G ", "G#", "A ", "A#", "B "
+    };    
     byte index = get_par_index();
     sprintf(str, "%2d", get_value(index));
+    if (index == 19 || index == 40 || index == 61 || index == 82) {
+        // valeur FINE de la fréquence
+        byte idx = get_note(get_value(index - 1), get_value(index));
+        sprintf(str, "%2s", notes[idx]);
+    }
 }
