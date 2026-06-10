@@ -278,8 +278,8 @@ byte get_note(byte coarse, byte fine) {
         co = 0.5;
     }
     float note_th = 12 * log(co * fi) / log(2);
-    float note_ph = round(note_th + 0.01); // note la plus proche
-    return ((int) note_ph) % 12;
+    byte note_ph = (byte) round(note_th + 0.01); // note la plus proche
+    return note_ph % 12;
 }
 
 /**
@@ -296,6 +296,6 @@ void get_string(char str[8]) {
     if (index == 19 || index == 40 || index == 61 || index == 82) {
         // valeur FINE de la fréquence
         byte idx = get_note(get_value(index - 1), get_value(index));
-        sprintf(str, "%2s", notes[idx]);
+        sprintf(str, "%s", notes[idx]);
     }
 }
