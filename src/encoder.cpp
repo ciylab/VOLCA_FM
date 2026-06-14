@@ -86,12 +86,18 @@ void handleRotate1(int8_t rotation) {
             step = 5;
         }
         if (rotation > 0) {
+            if (value == get_max(index)) {
+                return;
+            }
             if(value + step < get_max(index)) {
                 set_value(index, value + step);
             } else {
                 set_value(index, get_max(index));
             }
         } else if (rotation < 0) {
+            if (value == 0) {
+                return;
+            }
             if(step < value) {
                 set_value(index, value - step);
             } else {
