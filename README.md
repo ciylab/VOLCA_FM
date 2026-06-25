@@ -5,7 +5,6 @@ sur le synthétiseur.
 
 ## Exemple de configuration 
 
-contrôleur MIDI (Evolution UC-33) -> module MIDI TOOLS -> VOLCA FM (firmware
-1.09)
+	contrôleur MIDI (Evolution UC-33) -> module -> VOLCA FM (firmware 1.09)
 
 ![demo](docs/demo.jpg)
